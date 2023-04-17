@@ -1,0 +1,18 @@
+static pointer to player: 
+    2295765170C
+    sauerbraten.exe+2A2560
+---- variables ---- 
+
+pistol ammo offset - 0x1ac
+
+
+
+---- code ----
+
+Shoot - Decrease ammo by one
+    sauerbraten.game::shoot+120 - 41 89 84 8E 94010000  - mov [r14+rcx*4+00000194],eax
+                Base address   offset to decreasing ammo
+    7FF7F3EDB5E0 - 7ff7f3d00000 = 1DB5E0
+        bytes: 8 bytes
+
+

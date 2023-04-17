@@ -1,8 +1,14 @@
-#include <Windows.h>
 #include <iostream>
+#include <Windows.h>
+#include <vector>
+#include "Key.hpp"
+#include "globals.hpp"
+#include "cheat.hpp"
 
 #define __DEBUG
 #define __DEBUG_CHECK_RUN
+
+void initKeys();
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
 
@@ -12,16 +18,34 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     freopen_s(&f, "CONOUT$", "w", stdout);
 #endif
 
-#ifdef __DEBUG_CHECK_RUN
-    while (true) {
-        std::cout << "running" << std::endl;
-    }
-#endif
+    initKeys();
+    initCheat();
 
+    while (true) {
+        for (Key* key : keys) {
+            key->captureKey();
+            if (key->isPressed()) {
+                switch (key->getKey()) {
+                    case VK_F5:
+#ifdef __DEBUG
+                        std::cout << "F5 Pressed" << std::endl;
+#endif
+                        freezeAmmo = !freezeAmmo;
+                        break;
+                    case VK_F6:
+#ifdef __DEBUG
+                        std::cout << "F6 Pressed" << std::endl;
+#endif
+                        break;
+                }
+            }
+        }
+    }
+
+    return 0;
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-
     switch (ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
             HANDLE tHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)InternalMain, hModule, 0, 0);
@@ -31,3 +55,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     }
     return TRUE;
 }
+
+void initKeys() {
+    for (auto key : keysToCapture)
+        keys.push_back(new Key(key));
+}
+
