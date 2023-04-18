@@ -1,30 +1,46 @@
 #include "cheat.hpp"
 
-#define modName L"sauerbraten.exe"
+Cheat::Cheat(const wchar_t* moduleName) {
+    this->moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandleW(moduleName));
+    this->originalAmmoCode = new BYTE[AMMO_CODE_BYTES_COUNT];
+    this->loadOriginalAmmoCode();
 
-uintptr_t moduleBase;
+#ifdef __DEBUG
+    std::cout << "Loaded original ammo code: ";
+    this->printBytes(this->originalAmmoCode, AMMO_CODE_BYTES_COUNT);
+#endif
 
-BYTE originalAmmoCode[8];
-
-
-void initCheat() {
-    initModuleAddress();
-    //test();
 }
 
-void initModuleAddress() {
-    moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandleW(modName));
-    //std::cout << std::hex << moduleBase << std::endl;
+Cheat::~Cheat() {
+    delete this->originalAmmoCode;
 }
 
-// void test() {
-//     uintptr_t ammoCode = moduleBase + 0x1DB5E0;
-//     std::cout << std::hex << ammoCode << std::endl;
-//     BYTE code[8];
-//     memcpy(code, (void*)ammoCode, 8);
+void Cheat::loadOriginalAmmoCode() {
+    this->ammoCodeStart = this->moduleBase + AMMO_CODE_OFFSET;
+    memcpy(this->originalAmmoCode, (void*)ammoCodeStart, AMMO_CODE_BYTES_COUNT);
+}
 
-//     for (auto c : code) {
-//         std::cout << std::hex << std::setw(2) << std::setfill('0') << (int)c << " ";
-//     }
-//     std::cout << std::endl;
-// }
+#ifdef __DEBUG
+void Cheat::printBytes(BYTE* bytes, size_t size) {
+    for (size_t idx = 0; idx < size; idx++) {
+        std::cout << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(bytes[idx]) << " ";
+    }
+    std::cout << std::endl;
+}
+#endif
+
+void Cheat::freezeAmmo(bool enabled) {
+    DWORD oldProtection;
+
+    VirtualProtect((void*)ammoCodeStart, AMMO_CODE_BYTES_COUNT, PAGE_EXECUTE_READWRITE, &oldProtection);
+
+    if (enabled) {
+        memset((void*)ammoCodeStart, 0x90, AMMO_CODE_BYTES_COUNT);
+    }
+    else {
+        memcpy((void*)ammoCodeStart, this->originalAmmoCode, AMMO_CODE_BYTES_COUNT);
+    }
+
+    VirtualProtect((void*)ammoCodeStart, AMMO_CODE_BYTES_COUNT, oldProtection, NULL);
+}

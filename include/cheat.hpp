@@ -7,7 +7,23 @@
 
 #define __DEBUG
 
-void initCheat();
-void initModuleAddress();
+#define AMMO_CODE_BYTES_COUNT 8
+#define AMMO_CODE_OFFSET 0x1DB5E0
 
-//void test();
+class Cheat {
+private:
+    uintptr_t moduleBase;
+
+    uintptr_t ammoCodeStart;
+    BYTE* originalAmmoCode;
+    void loadOriginalAmmoCode();
+
+#ifdef __DEBUG
+    void printBytes(BYTE* bytes, size_t size);
+#endif
+
+public:
+    Cheat(const wchar_t*);
+    ~Cheat();
+    void freezeAmmo(bool enabled);
+};

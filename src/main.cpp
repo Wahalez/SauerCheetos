@@ -5,8 +5,9 @@
 #include "globals.hpp"
 #include "cheat.hpp"
 
+#define GAME_MODULE L"sauerbraten.exe"
+
 #define __DEBUG
-#define __DEBUG_CHECK_RUN
 
 void initKeys();
 
@@ -19,7 +20,8 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
 #endif
 
     initKeys();
-    initCheat();
+
+    Cheat* cheat = new Cheat(GAME_MODULE);
 
     while (true) {
         for (Key* key : keys) {
@@ -31,6 +33,7 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
                         std::cout << "F5 Pressed" << std::endl;
 #endif
                         freezeAmmo = !freezeAmmo;
+                        cheat->freezeAmmo(freezeAmmo);
                         break;
                     case VK_F6:
 #ifdef __DEBUG
