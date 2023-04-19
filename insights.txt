@@ -16,3 +16,7 @@ Shoot - Decrease ammo by one
         bytes: 8 bytes
 
 
+Rapid Fire - 
+sauerbraten.game::shoot+542 - 41 89 86 90 01 00 00     - mov [r14+00000190],eax
+    7FF6651CBA02 - 7ff664ff0000 = 1DBA02
+    bytes: 7 bytes

@@ -38,7 +38,9 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
                     case VK_F6:
 #ifdef __DEBUG
                         std::cout << "F6 Pressed" << std::endl;
-#endif
+#endif                  
+                        rapidFire = !rapidFire;
+                        cheat->rapidFire(rapidFire);
                         break;
                 }
             }

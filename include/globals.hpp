@@ -7,3 +7,4 @@
 extern const std::vector<unsigned char> keysToCapture;
 extern std::vector<Key*> keys;
 extern bool freezeAmmo;
+extern bool rapidFire;

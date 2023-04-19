@@ -5,3 +5,4 @@ std::vector<Key*> keys;
 
 // cheat state
 bool freezeAmmo = false;
+bool rapidFire = false;
