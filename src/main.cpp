@@ -17,6 +17,7 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     AllocConsole();
     FILE* f;
     freopen_s(&f, "CONOUT$", "w", stdout);
+    printf("Test\n");
 #endif
 
     initKeys();
