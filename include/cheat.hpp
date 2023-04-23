@@ -13,6 +13,8 @@
 #define RAPID_FIRE_BYTES_COUNT 7
 #define RAPID_FIRE_OFFSET 0x1DBA02
 
+#define PLAYER_SHOOT_OFFSET 0x01FC
+
 class Cheat {
 private:
     uintptr_t moduleBase;
