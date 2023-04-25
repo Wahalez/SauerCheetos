@@ -13,7 +13,7 @@
 #define RAPID_FIRE_BYTES_COUNT 7
 #define RAPID_FIRE_OFFSET 0x1DBA02
 
-#define PLAYER_SHOOT_OFFSET 0x01FC
+#define PLAYER_SHOOT_BOOL_OFFSET 0x01FC
 
 class Cheat {
 private:

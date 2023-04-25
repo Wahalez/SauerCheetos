@@ -1,26 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="42">
+<CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
-      <ID>2</ID>
-      <Description>"SP-&gt;Health"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>sauerbraten.exe+2A2560</Address>
-      <Offsets>
-        <Offset>0x178</Offset>
-      </Offsets>
+      <ID>5</ID>
+      <Description>"functions"</Description>
+      <Color>808000</Color>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>4</ID>
+          <Description>"sauerbraten.game::shoot"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>808000</Color>
+          <VariableType>Array of byte</VariableType>
+          <ByteLength>0</ByteLength>
+          <Address>sauerbraten.game::shoot</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>9</ID>
+          <Description>"sauerbraten.game::intersectclosest "</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>808000</Color>
+          <VariableType>Array of byte</VariableType>
+          <ByteLength>0</ByteLength>
+          <Address>sauerbraten.game::intersectclosest </Address>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
     <CheatEntry>
-      <ID>3</ID>
-      <Description>"SP-&gt;Max Health"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>4 Bytes</VariableType>
-      <Address>sauerbraten.exe+2A2560</Address>
-      <Offsets>
-        <Offset>0x17C</Offset>
-      </Offsets>
+      <ID>6</ID>
+      <Description>"static pointers"</Description>
+      <Color>0080FF</Color>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"SP-&gt;Health"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>0x178</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"SP-&gt;Max Health"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>0x17C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"SP-&gt;Shoot Delay (ms)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>0x190</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"SP-&gt;Shoot"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>Byte</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>0x01fc</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
   </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>shoot function</Description>
+      <AddressString>sauerbraten.exe+1DB4C0</AddressString>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>40</Byte>
+        <Byte>55</Byte>
+      </Actual>
+      <After>
+        <Byte>53</Byte>
+        <Byte>41</Byte>
+        <Byte>56</Byte>
+        <Byte>48</Byte>
+        <Byte>8D</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
   <UserdefinedSymbols/>
 </CheatTable>
