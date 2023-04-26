@@ -14,7 +14,6 @@ extern bool freezeAmmo;
 extern bool rapidFire;
 extern bool kickbackForce;
 
-
 #define __DEBUG
 
 #define AMMO_CODE_BYTES_COUNT 8
