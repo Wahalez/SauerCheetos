@@ -7,8 +7,6 @@
 
 #define GAME_MODULE L"sauerbraten.exe"
 
-#define __DEBUG
-
 void initKeys();
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
