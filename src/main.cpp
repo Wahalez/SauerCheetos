@@ -31,21 +31,21 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
             key->captureKey();
             if(key->isPressed()) {
                 switch(key->getKey()) {
-                    case VK_F5:
+                    case VK_F5: // freeze ammo
 #ifdef __DEBUG
                         std::cout << "F5 Pressed" << std::endl;
 #endif
                         freezeAmmo = !freezeAmmo;
                         cheat->freezeAmmo(freezeAmmo);
                         break;
-                    case VK_F6:
+                    case VK_F6: // rapid fire
 #ifdef __DEBUG
                         std::cout << "F6 Pressed" << std::endl;
 #endif                  
                         rapidFire = !rapidFire;
                         cheat->rapidFire(rapidFire);
                         break;
-                    case VK_F7:
+                    case VK_F7: // kickback force
 #ifdef __DEBUG
                         std::cout << "F7 Pressed" << std::endl;
 #endif
