@@ -1,15 +1,27 @@
 #include "cheat.hpp"
 
+typedef Entity* (__cdecl *intersectClosest)(Entity*, void*, Entity*, float*);
+
+intersectClosest intersectFunc{ nullptr };
+
 Cheat::Cheat(const wchar_t* moduleName) {
     this->moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandleW(moduleName));
+
     this->initCodeBuffers();
     this->loadOriginalAmmoCode();
     this->loadOriginalRapidFireCode();
     this->loadOriginalKickbackForceCode();
 
+    player = *reinterpret_cast<Entity**>(this->moduleBase + STATIC_PLAYER_POINTER_OFFSET);
+
+    intersectFunc = (intersectClosest)(this->moduleBase + INTERSECTDIST_FUNCTION_OFFSET);
+
 #ifdef __DEBUG
     std::cout << "Loaded original ammo code: ";
     this->printBytes(this->originalAmmoCode, AMMO_CODE_BYTES_COUNT);
+
+    std::cout << "\nPlayer address: " << player << std::endl;
+    std::cout << "\n---Check player object---\nPistol ammo: " << std::dec << player->pistol_ammo << std::endl;
 #endif
 
 }
@@ -17,6 +29,12 @@ Cheat::Cheat(const wchar_t* moduleName) {
 Cheat::~Cheat() {
     delete[] this->originalAmmoCode;
     delete[] this->originalRapidFireCode;
+    delete[] this->originalKickbackRightLeftCode1;
+    delete[] this->originalKickbackRightLeftCode2;
+    delete[] this->originalKickbackBackForwardCode1;
+    delete[] this->originalKickbackBackForwardCode2;
+    delete[] this->originalKickbackUpDownCode1;
+    delete[] this->originalKickbackUpDownCode2;
 }
 
 void Cheat::initCodeBuffers() {
@@ -100,4 +118,11 @@ void Cheat::kickbackForce(bool enabled) {
     this->alterCode_nop(enabled, this->kickbackBackForward2, KICKBACK_BACK_FORWARD_2_BYTES, this->originalKickbackBackForwardCode2);
     this->alterCode_nop(enabled, this->kickbackUpDown1, KICKBACK_UP_DOWN_1_BYTES, this->originalKickbackUpDownCode1);
     this->alterCode_nop(enabled, this->kickbackUpDown2, KICKBACK_UP_DOWN_2_BYTES, this->originalKickbackUpDownCode2);
+}
+
+Entity* Cheat::getIntersectEntity() {
+    void* worldpos{ (void*)(this->moduleBase + WORLDPOS_OFFSET) };
+    float* intersectDist{ (float*)(this->moduleBase + INTERSECTDIST_OFFSET) };
+
+    return intersectFunc(player, worldpos, player, intersectDist);
 }

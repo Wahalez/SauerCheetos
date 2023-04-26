@@ -24,6 +24,9 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     Cheat* cheat = new Cheat(GAME_MODULE);
 
     while(true) {
+        Entity* ent = cheat->getIntersectEntity();
+        if(ent)
+            ent->kick_force_up_down = 100;
         for(Key* key : keys) {
             key->captureKey();
             if(key->isPressed()) {

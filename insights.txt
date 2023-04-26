@@ -23,3 +23,7 @@ sauerbraten.game::shoot+542 - 41 89 86 90 01 00 00     - mov [r14+00000190],eax
 
 
 intersectclosts() - gameModule + 0x1DB2A0
+
+
+worldpos offset - gameModule + 0x32BEF8
+intersectdist offset - gameModule + 0x26E54C

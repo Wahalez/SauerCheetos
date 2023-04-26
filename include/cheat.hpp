@@ -2,6 +2,7 @@
 
 #include "windows.h"
 #include "globals.hpp"
+#include "Entity.hpp"
 #include <iostream>
 #include <iomanip>
 
@@ -12,8 +13,6 @@
 
 #define RAPID_FIRE_BYTES_COUNT 7
 #define RAPID_FIRE_OFFSET 0x1DBA02
-
-#define PLAYER_SHOOT_BOOL_OFFSET 0x01FC
 
 #define KICKBACK_RIGHT_LEFT_1_OFFSET 0x1DB759
 #define KICKBACK_RIGHT_LEFT_1_BYTES 6
@@ -30,6 +29,12 @@
 #define KICKBACK_UP_DOWN_2_OFFSET 0x1DB77B
 #define KICKBACK_UP_DOWN_2_BYTES 6
 
+#define STATIC_PLAYER_POINTER_OFFSET 0x2A2560
+
+#define WORLDPOS_OFFSET 0x32BEF8
+#define INTERSECTDIST_OFFSET 0x26E54C
+
+#define INTERSECTDIST_FUNCTION_OFFSET 0x1DB2A0
 
 class Cheat {
 private:
@@ -74,4 +79,5 @@ public:
     void freezeAmmo(bool enabled);
     void rapidFire(bool enabled);
     void kickbackForce(bool enabled);
+    Entity* getIntersectEntity();
 };
