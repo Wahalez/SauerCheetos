@@ -80,6 +80,51 @@
             <Offset>0x01fc</Offset>
           </Offsets>
         </CheatEntry>
+        <CheatEntry>
+          <ID>10</ID>
+          <Description>"SP-&gt;Player"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>Array of byte</VariableType>
+          <ByteLength>0</ByteLength>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"SP-&gt;Kick Force Right_Left"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>000C</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"SP-&gt;Kick Force Back_Forward"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>10</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"SP-&gt;Kick Force Up_Down"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>0080FF</Color>
+          <VariableType>Float</VariableType>
+          <Address>sauerbraten.exe+2A2560</Address>
+          <Offsets>
+            <Offset>14</Offset>
+          </Offsets>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
   </CheatEntries>
@@ -104,6 +149,161 @@
         <Byte>56</Byte>
         <Byte>48</Byte>
         <Byte>8D</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of mov [sauerbraten.camera1],rbx</Description>
+      <AddressString>sauerbraten.exe+1461F1</AddressString>
+      <Before>
+        <Byte>1D</Byte>
+        <Byte>37</Byte>
+        <Byte>D3</Byte>
+        <Byte>15</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>1D</Byte>
+        <Byte>68</Byte>
+        <Byte>C3</Byte>
+        <Byte>15</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>40</Byte>
+        <Byte>88</Byte>
+        <Byte>35</Byte>
+        <Byte>5A</Byte>
+        <Byte>C5</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Change of addss xmm1,[r14+0C]</Description>
+      <AddressString>sauerbraten.exe+1DB759</AddressString>
+      <Before>
+        <Byte>C8</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>D0</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>4E</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>D8</Byte>
+        <Byte>F3</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [r14+0C],xmm1</Description>
+      <AddressString>sauerbraten.exe+1DB76F</AddressString>
+      <Before>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>5E</Byte>
+        <Byte>14</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>4E</Byte>
+        <Byte>0C</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>56</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss xmm3,[rcx]</Description>
+      <AddressString>sauerbraten.exe+111F46</AddressString>
+      <Before>
+        <Byte>0F</Byte>
+        <Byte>5D</Byte>
+        <Byte>CD</Byte>
+        <Byte>EB</Byte>
+        <Byte>45</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>19</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>10</Byte>
+        <Byte>79</Byte>
+        <Byte>04</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :addss xmm2,[r14+10]</Description>
+      <AddressString>sauerbraten.exe+1DB763</AddressString>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>F3</Byte>
+        <Byte>0F</Byte>
+        <Byte>59</Byte>
+        <Byte>D8</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>56</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>58</Byte>
+        <Byte>5E</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :movss [r14+10],xmm2</Description>
+      <AddressString>sauerbraten.exe+1DB775</AddressString>
+      <Before>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+        <Byte>90</Byte>
+      </Before>
+      <Actual>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>56</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>F3</Byte>
+        <Byte>41</Byte>
+        <Byte>0F</Byte>
+        <Byte>11</Byte>
+        <Byte>5E</Byte>
       </After>
     </CodeEntry>
   </CheatCodes>
