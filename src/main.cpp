@@ -6,8 +6,11 @@
 #include "cheat.hpp"
 
 #define GAME_MODULE L"sauerbraten.exe"
+Cheat* cheat;
 
 void initKeys();
+void makeIntersectedEntityJump();
+void captureKeys();
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
 
@@ -19,51 +22,18 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
 
     initKeys();
 
-    Cheat* cheat = new Cheat(GAME_MODULE);
+    cheat = new Cheat(GAME_MODULE);
 
     while (true) {
+        if (makeemjump)
+            makeIntersectedEntityJump();
 
-        if (makeemjump) {
-            Entity* ent = cheat->getIntersectEntity();
-            if (ent)
-                ent->kick_force_up_down = 100;
-        }
-
-        for (Key* key : keys) {
-            key->captureKey();
-            if (key->isPressed()) {
-                switch (key->getKey()) {
-                    case VK_F5: // freeze ammo
-#ifdef __DEBUG
-                        std::cout << "F5 Pressed" << std::endl;
-#endif
-                        freezeAmmo = !freezeAmmo;
-                        cheat->freezeAmmo(freezeAmmo);
-                        break;
-                    case VK_F6: // rapid fire
-#ifdef __DEBUG
-                        std::cout << "F6 Pressed" << std::endl;
-#endif                  
-                        rapidFire = !rapidFire;
-                        cheat->rapidFire(rapidFire);
-                        break;
-                    case VK_F7: // kickback force
-#ifdef __DEBUG
-                        std::cout << "F7 Pressed" << std::endl;
-#endif
-                        kickbackForce = !kickbackForce;
-                        cheat->kickbackForce(kickbackForce);
-                        break;
-                    case VK_F8:
-#ifdef __DEBUG
-                        std::cout << "F8 Pressed" << std::endl;
-#endif
-                        makeemjump = !makeemjump;
-                        break;
-                }
-            }
-        }
+        captureKeys();
     }
+
+#ifdef __DEBUG
+    FreeConsole();
+#endif
 
     return 0;
 }
@@ -84,3 +54,45 @@ void initKeys() {
         keys.push_back(new Key(key));
 }
 
+void makeIntersectedEntityJump() {
+    Entity* ent = cheat->getIntersectEntity();
+    if (ent)
+        ent->kick_force_up_down = 100;
+}
+
+void captureKeys() {
+    for (Key* key : keys) {
+        key->captureKey();
+        if (key->isPressed()) {
+            switch (key->getKey()) {
+                case VK_F5: // freeze ammo
+#ifdef __DEBUG
+                    std::cout << "F5 Pressed" << std::endl;
+#endif
+                    freezeAmmo = !freezeAmmo;
+                    cheat->freezeAmmo(freezeAmmo);
+                    break;
+                case VK_F6: // rapid fire
+#ifdef __DEBUG
+                    std::cout << "F6 Pressed" << std::endl;
+#endif                  
+                    rapidFire = !rapidFire;
+                    cheat->rapidFire(rapidFire);
+                    break;
+                case VK_F7: // kickback force
+#ifdef __DEBUG
+                    std::cout << "F7 Pressed" << std::endl;
+#endif
+                    kickbackForce = !kickbackForce;
+                    cheat->kickbackForce(kickbackForce);
+                    break;
+                case VK_F8: // make'em jump
+#ifdef __DEBUG
+                    std::cout << "F8 Pressed" << std::endl;
+#endif
+                    makeemjump = !makeemjump;
+                    break;
+            }
+        }
+    }
+}
