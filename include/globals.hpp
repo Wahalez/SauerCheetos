@@ -13,6 +13,7 @@ extern Entity* player;
 extern bool freezeAmmo;
 extern bool rapidFire;
 extern bool kickbackForce;
+extern bool makeemjump;
 
 #define __DEBUG
 
