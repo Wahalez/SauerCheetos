@@ -56,8 +56,15 @@ void initKeys() {
 
 void makeIntersectedEntityJump() {
     Entity* ent = cheat->getIntersectEntity();
-    if (ent)
+    if (ent) {
+#ifdef __DEBUG
+        std::cout << "\nEntity Address: " << std::hex << ent <<
+            //"\nEntity 0x01C8 Address: " << ((uintptr_t)ent + 0x1C8) <<
+            "\nEntity 0x01C8 Value: " << *((int32_t*)((uintptr_t)ent + 0x1C8)) <<
+            "\nEntity 0x0077 Value:" << *((char*)((uintptr_t)ent + 0x77)) << std::endl;
+#endif
         ent->kick_force_up_down = 100;
+    }
 }
 
 void captureKeys() {
