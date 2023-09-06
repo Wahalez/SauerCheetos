@@ -15,6 +15,8 @@ extern bool rapidFire;
 extern bool kickbackForce;
 extern bool makeemjump;
 
+extern int* type_offset;
+
 #define __DEBUG
 
 #define AMMO_CODE_BYTES_COUNT 8

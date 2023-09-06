@@ -17,15 +17,25 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
 #ifdef __DEBUG
     AllocConsole();
     FILE* f;
+
     freopen_s(&f, "CONOUT$", "w", stdout);
+    freopen_s(&f, "CONIN$", "r", stdin);
+
+    std::cout << "---------CHEAT---------\n" <<
+        "F5: Freeze Ammo\n" <<
+        "F6: Rapid Fire\n" <<
+        "F7: KickBack Force\n" <<
+        "F8: Make'em Jump & entity type finder\n" <<
+        "F9: Change Entity type finder offset\n" <<
+        "-----------------------" << std::endl;
 #endif
 
     initKeys();
 
     cheat = new Cheat(GAME_MODULE);
 
-    while (true) {
-        if (makeemjump)
+    while(true) {
+        if(makeemjump)
             makeIntersectedEntityJump();
 
         captureKeys();
@@ -39,10 +49,10 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-    switch (ul_reason_for_call) {
+    switch(ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
             HANDLE tHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)InternalMain, hModule, 0, 0);
-            if (tHandle) CloseHandle(tHandle);
+            if(tHandle) CloseHandle(tHandle);
             else return FALSE;
             break;
     }
@@ -50,28 +60,31 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 }
 
 void initKeys() {
-    for (auto key : keysToCapture)
+    for(auto key : keysToCapture)
         keys.push_back(new Key(key));
 }
 
 void makeIntersectedEntityJump() {
+    static Entity* previous_ent = nullptr;
     Entity* ent = cheat->getIntersectEntity();
-    if (ent) {
+    if(ent) {
 #ifdef __DEBUG
-        std::cout << "\nEntity Address: " << std::hex << ent <<
-            //"\nEntity 0x01C8 Address: " << ((uintptr_t)ent + 0x1C8) <<
-            "\nEntity 0x01C8 Value: " << *((int32_t*)((uintptr_t)ent + 0x1C8)) <<
-            "\nEntity 0x0077 Value:" << *((char*)((uintptr_t)ent + 0x77)) << std::endl;
+        if(ent != previous_ent) {
+            previous_ent = ent;
+            std::cout << "\nEntity Address: " << std::hex << ent <<
+                "\nEntity " << *type_offset << " Value: " <<
+                *((int32_t*)((uintptr_t)ent + *type_offset)) << std::endl;
+        }
 #endif
         ent->kick_force_up_down = 100;
     }
 }
 
 void captureKeys() {
-    for (Key* key : keys) {
+    for(Key* key : keys) {
         key->captureKey();
-        if (key->isPressed()) {
-            switch (key->getKey()) {
+        if(key->isPressed()) {
+            switch(key->getKey()) {
                 case VK_F5: // freeze ammo
 #ifdef __DEBUG
                     std::cout << "F5 Pressed" << std::endl;
@@ -98,6 +111,12 @@ void captureKeys() {
                     std::cout << "F8 Pressed" << std::endl;
 #endif
                     makeemjump = !makeemjump;
+                    break;
+                case VK_F9: // entity type finder offset change
+#ifdef __DEBUG
+                    std::cout << "F9 Pressed" << std::endl;
+#endif
+                    std::cin >> std::hex >> *type_offset;
                     break;
             }
         }
