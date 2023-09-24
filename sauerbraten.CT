@@ -2,6 +2,15 @@
 <CheatTable CheatEngineTableVersion="45">
   <CheatEntries>
     <CheatEntry>
+      <ID>20</ID>
+      <Description>"sauerbraten.exe"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <ShowAsSigned>0</ShowAsSigned>
+      <Color>30B636</Color>
+      <VariableType>4 Bytes</VariableType>
+      <Address>sauerbraten.exe</Address>
+    </CheatEntry>
+    <CheatEntry>
       <ID>5</ID>
       <Description>"functions"</Description>
       <Color>808000</Color>
@@ -124,6 +133,31 @@
           <Offsets>
             <Offset>14</Offset>
           </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>24</ID>
+      <Description>"globals"</Description>
+      <Color>7D2FB7</Color>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>23</ID>
+          <Description>"monsters array length"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>7D2FB7</Color>
+          <VariableType>4 Bytes</VariableType>
+          <Address>sauerbraten.exe + 0x1db000 + 0x2c4 + 0x16bac8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>25</ID>
+          <Description>"possible monsters array ?"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <ShowAsSigned>0</ShowAsSigned>
+          <Color>7D2FB7</Color>
+          <VariableType>8 Bytes</VariableType>
+          <Address>sauerbraten.exe + 0x1db000 + 0x2c0 + 0x16bac0</Address>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
