@@ -6,17 +6,17 @@
 #include "Entity.hpp"
 
 extern const std::vector<unsigned char> keysToCapture;
-extern std::vector<Key *> keys;
+extern std::vector<Key*> keys;
 
-extern Entity *player;
+extern Entity* player;
 
 extern bool freezeAmmo;
 extern bool rapidFire;
 extern bool kickbackForce;
 extern bool makeemjump;
-extern bool autoShoot;
+extern bool auto_shoot;
 
-extern int *type_offset;
+extern int* type_offset;
 
 #define __DEBUG
 
