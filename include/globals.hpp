@@ -14,6 +14,7 @@ extern bool freezeAmmo;
 extern bool rapidFire;
 extern bool kickbackForce;
 extern bool makeemjump;
+extern bool auto_shoot;
 
 extern int* type_offset;
 

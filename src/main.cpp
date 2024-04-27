@@ -10,6 +10,7 @@ Cheat* cheat;
 
 void initKeys();
 void makeIntersectedEntityJump();
+void autoShoot();
 void captureKeys();
 
 DWORD WINAPI InternalMain(HMODULE hMod) {
@@ -35,9 +36,8 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     cheat = new Cheat(GAME_MODULE);
 
     while(true) {
-        if(makeemjump)
-            makeIntersectedEntityJump();
-
+        if(makeemjump) makeIntersectedEntityJump();
+        if(auto_shoot) autoShoot();
         captureKeys();
     }
 
@@ -80,6 +80,31 @@ void makeIntersectedEntityJump() {
     }
 }
 
+void autoShoot() {
+    static bool found_monster = false;
+    Entity* ent = cheat->getIntersectEntity();
+    if(ent) {
+        uintptr_t p = *(uintptr_t*)((uintptr_t)ent + 0xD8);
+        if(p != NULL) {
+            char* str = (char*)(*(uintptr_t*)(p + 0x18));
+            if(str != nullptr) {
+                std::cout << "\nPointer Address: " << std::hex << p << std::endl;
+                std::cout << (char*)str << std::endl;
+                std::string type{str};
+                if(type.find("monster") != std::string::npos ||
+                   type.find("ogro") != std::string::npos ) {
+                    player->shoot = true;
+                    found_monster = true;
+                }
+            }
+        }
+    } else if (found_monster) {
+        found_monster = false;
+        player->shoot = false;
+    }
+    
+}
+
 void captureKeys() {
     for(Key* key : keys) {
         key->captureKey();
@@ -117,6 +142,10 @@ void captureKeys() {
                     std::cout << "F9 Pressed" << std::endl;
 #endif
                     std::cin >> std::hex >> *type_offset;
+                    break;
+                case VK_F10:
+                    std::cout << "F10 Pressed" << std::endl;
+                    auto_shoot = !auto_shoot;
                     break;
             }
         }

@@ -1,0 +1,16 @@
+entity pointer + 0xD8 -> pointer2
+pointer2 + 0x18 -> string
+
+
+
+
+
+
+
+
+
+
+
+test
+
+0x2809C0AC450

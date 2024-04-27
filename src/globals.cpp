@@ -6,6 +6,7 @@ const std::vector<unsigned char> keysToCapture = {
     VK_F7, // kickback force
     VK_F8, // make'em jump
     VK_F9, // change entity type finder offset
+    VK_F10, // kaki
 };
 std::vector<Key*> keys;
 
@@ -16,5 +17,6 @@ bool freezeAmmo = false;
 bool rapidFire = false;
 bool kickbackForce = false;
 bool makeemjump = false;
+bool auto_shoot = false;
 
 int* type_offset = new int();
