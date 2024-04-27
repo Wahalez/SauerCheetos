@@ -6,7 +6,8 @@
 #include <iostream>
 #include <iomanip>
 
-class Cheat {
+class Cheat
+{
 private:
     uintptr_t moduleBase;
 
@@ -14,12 +15,12 @@ private:
 
     // ammo code responsible for subtracting ammo when shooting
     uintptr_t ammoCodeStart;
-    BYTE* originalAmmoCode;
+    BYTE *originalAmmoCode;
     void loadOriginalAmmoCode();
 
     // code responsible for time delay between shots
     uintptr_t rapidFireStart;
-    BYTE* originalRapidFireCode;
+    BYTE *originalRapidFireCode;
     void loadOriginalRapidFireCode();
 
     // code responsible for kickback force when shooting
@@ -29,25 +30,25 @@ private:
     uintptr_t kickbackBackForward2;
     uintptr_t kickbackUpDown1;
     uintptr_t kickbackUpDown2;
-    BYTE* originalKickbackRightLeftCode1;
-    BYTE* originalKickbackRightLeftCode2;
-    BYTE* originalKickbackBackForwardCode1;
-    BYTE* originalKickbackBackForwardCode2;
-    BYTE* originalKickbackUpDownCode1;
-    BYTE* originalKickbackUpDownCode2;
+    BYTE *originalKickbackRightLeftCode1;
+    BYTE *originalKickbackRightLeftCode2;
+    BYTE *originalKickbackBackForwardCode1;
+    BYTE *originalKickbackBackForwardCode2;
+    BYTE *originalKickbackUpDownCode1;
+    BYTE *originalKickbackUpDownCode2;
     void loadOriginalKickbackForceCode();
 
-    void alterCode_nop(bool enabled, uintptr_t code_offset, size_t bytes, BYTE* originalCode);
+    void alterCode_nop(bool enabled, uintptr_t code_offset, size_t bytes, BYTE *originalCode);
 
 #ifdef __DEBUG
-    void printBytes(BYTE* bytes, size_t size);
+    void printBytes(BYTE *bytes, size_t size);
 #endif
 
 public:
-    Cheat(const wchar_t*);
+    Cheat(const wchar_t *);
     ~Cheat();
     void freezeAmmo(bool enabled);
     void rapidFire(bool enabled);
     void kickbackForce(bool enabled);
-    Entity* getIntersectEntity();
+    Entity *getIntersectEntity();
 };
