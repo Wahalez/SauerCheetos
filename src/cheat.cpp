@@ -291,8 +291,8 @@ void Cheat::printCheat()
         "F5: Freeze Ammo\n"
         "F6: Rapid Fire\n"
         "F7: KickBack Force\n"
-        "F8: Make'em Jump & entity type finder"
-        "F9: Auto Shoot"
+        "F8: Make'em Jump & entity type finder\n"
+        "F9: Auto Shoot\n"
         "\n\n";
 
     if (this->freezeHealth)
