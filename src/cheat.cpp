@@ -19,6 +19,17 @@ Cheat::Cheat(const wchar_t *moduleName)
 
 Cheat::~Cheat()
 {
+
+    this->freezeHealth = false;
+    this->freezeAmmo = false;
+    this->rapidFire = false;
+    this->kickback_force = false;
+
+    this->handle_freeze_health();
+    this->handle_freeze_ammo();
+    this->handle_rapid_fire();
+    this->handle_kickbackForce();
+
     delete[] this->originalHealthCode;
     delete[] this->originalAmmoCode;
     delete[] this->originalRapidFireCode;
@@ -37,6 +48,11 @@ void Cheat::run()
         this->handle_keys_capture();
         this->handle_makeemjump();
         this->handle_auto_shoot();
+
+        if (exit)
+            break;
+
+        Sleep(50);
     }
 }
 
@@ -54,6 +70,10 @@ void Cheat::handle_key_capture(Key *key)
 {
     switch (key->getKey())
     {
+    case VK_DELETE:
+        this->exit = !this->exit;
+        break;
+
     case VK_F4:
         this->freezeHealth = !this->freezeHealth;
         this->handle_freeze_health();
@@ -92,6 +112,7 @@ void Cheat::handle_key_capture(Key *key)
 
 void Cheat::init_cheat_state()
 {
+    this->exit = false;
     this->freezeHealth = false;
     this->freezeAmmo = false;
     this->rapidFire = false;
@@ -286,14 +307,14 @@ bool Cheat::is_monster_type(std::string model_string)
 void Cheat::printCheat()
 {
     std::string cheat_menu =
-        "---------CHEAT---------\n"
+        "---------CHEAT---------\n\n"
+        "DELETE -> Exit Cheat\n\n"
         "F4: Freeze Health\n"
         "F5: Freeze Ammo\n"
         "F6: Rapid Fire\n"
         "F7: KickBack Force\n"
         "F8: Make'em Jump & entity type finder\n"
-        "F9: Auto Shoot\n"
-        "\n\n";
+        "F9: Auto Shoot\n\n";
 
     if (this->freezeHealth)
         cheat_menu += "[+] Freeze Health";

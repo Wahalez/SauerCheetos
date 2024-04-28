@@ -5,29 +5,39 @@
 #include "Cheat.hpp"
 
 #ifdef __DEBUG
-void init_console()
+void init_console(FILE *f)
 {
+    ShowWindow(GetConsoleWindow(), SW_SHOW);
     AllocConsole();
-    FILE *f;
-
     freopen_s(&f, "CONOUT$", "w", stdout);
     freopen_s(&f, "CONIN$", "r", stdin);
+}
+
+void free_console(FILE *f)
+{
+    system("cls");
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    CloseHandle(f);
+    FreeConsole();
 }
 #endif
 
 DWORD WINAPI InternalMain(HMODULE hMod)
 {
 #ifdef __DEBUG
-    init_console();
+    FILE *f = nullptr;
+    init_console(f);
 #endif
 
     cheat_handler = new Cheat(GAME_MODULE);
     cheat_handler->run();
 
 #ifdef __DEBUG
-    FreeConsole();
+    free_console(f);
 #endif
 
+    delete cheat_handler;
+    FreeLibraryAndExitThread(hMod, 0);
     return 0;
 }
 

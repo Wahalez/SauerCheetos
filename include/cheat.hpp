@@ -44,6 +44,7 @@ private:
 
 private:
     // cheat state
+    bool exit;
     bool freezeHealth;
     bool freezeAmmo;
     bool rapidFire;
