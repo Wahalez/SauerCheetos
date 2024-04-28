@@ -7,16 +7,15 @@
 #include "Key.hpp"
 #include "Entity.hpp"
 
-typedef Entity *(__cdecl *intersectClosest)(Entity *, void *, Entity *, float *);
+typedef Entity*(__cdecl* intersectClosest)(Entity*, void*, Entity*, float*);
 
-class Cheat
-{
-public:
-    Cheat(const wchar_t *);
+class Cheat {
+   public:
+    Cheat(const wchar_t*);
     ~Cheat();
     void run();
 
-private:
+   private:
     void init_cheat_state();
     void init_capture_keys();
     void init_code_buffers();
@@ -26,23 +25,24 @@ private:
     void load_original_Kickback_force_code();
     void load_original_rapid_fire_code();
     void handle_keys_capture();
-    void handle_key_capture(Key *);
-    void alter_code_with_nop_bytes(bool enabled, uintptr_t code_offset, size_t bytes_count, BYTE *original_code);
+    void handle_key_capture(Key*);
+    void alter_code_with_nop_bytes(bool enabled, uintptr_t code_offset, size_t bytes_count, BYTE* original_code);
     void handle_freeze_health();
     void handle_freeze_ammo();
     void handle_rapid_fire();
     void handle_kickbackForce();
     void handle_makeemjump();
     void handle_auto_shoot();
-    Entity *getIntersectEntity();
+    Entity* getIntersectEntity();
     bool is_monster_type(std::string);
+    void write_back_original_code();
 
 #ifdef __DEBUG
     void printCheat();
-    void printBytes(BYTE *bytes, size_t size);
+    void printBytes(BYTE* bytes, size_t size);
 #endif
 
-private:
+   private:
     // cheat state
     bool exit;
     bool freezeHealth;
@@ -52,24 +52,24 @@ private:
     bool auto_shoot;
     bool kickback_force;
 
-private:
-    std::vector<Key *> keys_capture;
+   private:
+    std::vector<Key*> keys_capture;
 
-    Entity *player;
+    Entity* player;
 
     uintptr_t moduleBase;
 
     // health code responsible for subtracting health when hit
     uintptr_t healthCodeStart;
-    BYTE *originalHealthCode;
+    BYTE* originalHealthCode;
 
     // ammo code responsible for subtracting ammo when shooting
     uintptr_t ammoCodeStart;
-    BYTE *originalAmmoCode;
+    BYTE* originalAmmoCode;
 
     // code responsible for time delay between shots
     uintptr_t rapidFireStart;
-    BYTE *originalRapidFireCode;
+    BYTE* originalRapidFireCode;
 
     // code responsible for kickback force when shooting
     uintptr_t kickbackRightLeft1;
@@ -78,12 +78,12 @@ private:
     uintptr_t kickbackBackForward2;
     uintptr_t kickbackUpDown1;
     uintptr_t kickbackUpDown2;
-    BYTE *originalKickbackRightLeftCode1;
-    BYTE *originalKickbackRightLeftCode2;
-    BYTE *originalKickbackBackForwardCode1;
-    BYTE *originalKickbackBackForwardCode2;
-    BYTE *originalKickbackUpDownCode1;
-    BYTE *originalKickbackUpDownCode2;
+    BYTE* originalKickbackRightLeftCode1;
+    BYTE* originalKickbackRightLeftCode2;
+    BYTE* originalKickbackBackForwardCode1;
+    BYTE* originalKickbackBackForwardCode2;
+    BYTE* originalKickbackUpDownCode1;
+    BYTE* originalKickbackUpDownCode2;
 
     intersectClosest intersect_function;
 };

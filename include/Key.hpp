@@ -3,13 +3,12 @@
 #include <iostream>
 #include <Windows.h>
 
-class Key
-{
-private:
+class Key {
+   private:
     unsigned char key;
     int count;
 
-public:
+   public:
     Key(unsigned char key);
     void captureKey();
     bool isPressed();

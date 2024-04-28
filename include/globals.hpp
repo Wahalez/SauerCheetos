@@ -41,8 +41,8 @@
 #define MODEL_OFFSET 0xD8
 #define MODEL_STRING_OFFSET 0x18
 
-class Cheat; // forward declaration
+class Cheat;  // forward declaration
 
 extern const std::vector<unsigned char> keysToCapture;
 
-extern Cheat *cheat_handler;
+extern Cheat* cheat_handler;
