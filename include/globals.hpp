@@ -7,6 +7,9 @@
 
 #define __DEBUG
 
+#define HEALTH_CODE_BYTES_COUNT 6
+#define HEALTH_CODE_OFFSET 0x1C49ED
+
 #define AMMO_CODE_BYTES_COUNT 8
 #define AMMO_CODE_OFFSET 0x1DB5E0
 
@@ -42,4 +45,4 @@ class Cheat; // forward declaration
 
 extern const std::vector<unsigned char> keysToCapture;
 
-extern Cheat* cheat_handler;
+extern Cheat *cheat_handler;

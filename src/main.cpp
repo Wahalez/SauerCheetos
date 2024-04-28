@@ -5,16 +5,18 @@
 #include "Cheat.hpp"
 
 #ifdef __DEBUG
-void init_console() {
+void init_console()
+{
     AllocConsole();
-    FILE* f;
+    FILE *f;
 
     freopen_s(&f, "CONOUT$", "w", stdout);
     freopen_s(&f, "CONIN$", "r", stdin);
 }
 #endif
 
-DWORD WINAPI InternalMain(HMODULE hMod) {
+DWORD WINAPI InternalMain(HMODULE hMod)
+{
 #ifdef __DEBUG
     init_console();
 #endif
@@ -29,13 +31,17 @@ DWORD WINAPI InternalMain(HMODULE hMod) {
     return 0;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-    switch (ul_reason_for_call) {
-        case DLL_PROCESS_ATTACH:
-            HANDLE tHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)InternalMain, hModule, 0, 0);
-            if (tHandle) CloseHandle(tHandle);
-            else return FALSE;
-            break;
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+        HANDLE tHandle = CreateThread(nullptr, 0, (LPTHREAD_START_ROUTINE)InternalMain, hModule, 0, 0);
+        if (tHandle)
+            CloseHandle(tHandle);
+        else
+            return FALSE;
+        break;
     }
     return TRUE;
 }
