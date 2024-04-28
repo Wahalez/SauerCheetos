@@ -37,6 +37,7 @@ DWORD WINAPI InternalMain(HMODULE hMod)
 #endif
 
     delete cheat_handler;
+    Beep(750, 700);
     FreeLibraryAndExitThread(hMod, 0);
     return 0;
 }
