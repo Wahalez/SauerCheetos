@@ -1,22 +1,9 @@
 #pragma once
-
 #include <vector>
-#include <Windows.h>
+#include "Cheat.hpp"
 #include "Key.hpp"
-#include "Entity.hpp"
 
-extern const std::vector<unsigned char> keysToCapture;
-extern std::vector<Key*> keys;
-
-extern Entity* player;
-
-extern bool freezeAmmo;
-extern bool rapidFire;
-extern bool kickbackForce;
-extern bool makeemjump;
-extern bool auto_shoot;
-
-extern int* type_offset;
+#define GAME_MODULE L"sauerbraten.exe"
 
 #define __DEBUG
 
@@ -47,3 +34,12 @@ extern int* type_offset;
 #define INTERSECTDIST_OFFSET 0x26E54C
 
 #define INTERSECTDIST_FUNCTION_OFFSET 0x1DB2A0
+
+#define MODEL_OFFSET 0xD8
+#define MODEL_STRING_OFFSET 0x18
+
+class Cheat; // forward declaration
+
+extern const std::vector<unsigned char> keysToCapture;
+
+extern Cheat* cheat_handler;
