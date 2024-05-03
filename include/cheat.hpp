@@ -3,11 +3,14 @@
 #include <iomanip>
 #include <Windows.h>
 #include <vector>
+#include <string>
 #include "globals.hpp"
 #include "Key.hpp"
 #include "Entity.hpp"
 
 typedef Entity*(__cdecl* intersectClosest)(Entity*, void*, Entity*, float*);
+
+typedef bool(__cdecl* targetable)(Entity*, Entity*);
 
 class Cheat {
    public:
@@ -19,6 +22,7 @@ class Cheat {
     void init_cheat_state();
     void init_capture_keys();
     void init_code_buffers();
+    void init_game_functions_pointers();
     void load_original_codes();
     void load_original_health_code();
     void load_original_ammo_code();
@@ -40,6 +44,9 @@ class Cheat {
 #ifdef __DEBUG
     void printCheat();
     void printBytes(BYTE* bytes, size_t size);
+
+    bool is_targetable;
+    Entity* entity_pointed_at;
 #endif
 
    private:
@@ -86,4 +93,5 @@ class Cheat {
     BYTE* originalKickbackUpDownCode2;
 
     intersectClosest intersect_function;
+    targetable targetable_function;
 };

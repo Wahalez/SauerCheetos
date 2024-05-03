@@ -5,7 +5,7 @@ Cheat::Cheat(const wchar_t* moduleName) {
 
     this->player = *reinterpret_cast<Entity**>(this->moduleBase + STATIC_PLAYER_POINTER_OFFSET);
 
-    this->intersect_function = (intersectClosest)(this->moduleBase + INTERSECTDIST_FUNCTION_OFFSET);
+    this->init_game_functions_pointers();
 
     this->init_cheat_state();
 
@@ -30,6 +30,11 @@ Cheat::~Cheat() {
     delete[] this->originalKickbackUpDownCode2;
 }
 
+void Cheat::init_game_functions_pointers() {
+    this->intersect_function = (intersectClosest)(this->moduleBase + INTERSECTDIST_FUNCTION_OFFSET);
+    this->targetable_function = (targetable)(this->moduleBase + TARGETABLE_FUNCTION_OFFSET);
+}
+
 void Cheat::write_back_original_code() {
     this->freezeHealth = false;
     this->freezeAmmo = false;
@@ -51,7 +56,7 @@ void Cheat::run() {
         if (exit)
             break;
 
-        Sleep(50);
+        Sleep(100);
     }
 }
 
@@ -214,14 +219,16 @@ void Cheat::handle_kickbackForce() {
 }
 
 void Cheat::handle_makeemjump() {
-    // static Entity* previous_entity = nullptr;
+    static Entity* previous_entity = nullptr;
     if (this->makeemjump) {
         Entity* current_entity = this->getIntersectEntity();
-        if (current_entity
-            //&& current_entity != previous_entity
-        ) {
-            // previous_entity = current_entity;
+        if (current_entity && current_entity != previous_entity) {
+            previous_entity = current_entity;
             current_entity->kick_force_up_down = 100;
+#ifdef __DEBUG
+            this->entity_pointed_at = current_entity;
+            printCheat();
+#endif
         }
     }
 }
@@ -231,6 +238,7 @@ void Cheat::handle_auto_shoot() {
     if (this->auto_shoot) {
         Entity* current_entity = this->getIntersectEntity();
         if (current_entity) {
+            this->is_targetable = targetable_function(this->player, current_entity);
             uintptr_t p = *(uintptr_t*)((uintptr_t)current_entity + MODEL_OFFSET);
             if (p != NULL) {
                 char* model_string = (char*)(*(uintptr_t*)(p + MODEL_STRING_OFFSET));
@@ -247,6 +255,7 @@ void Cheat::handle_auto_shoot() {
             this->player->shoot = false;
         }
     }
+    //printCheat();
 }
 
 Entity* Cheat::getIntersectEntity() {
@@ -316,7 +325,14 @@ void Cheat::printCheat() {
         cheat_menu += "[ ] Auto Shoot";
     cheat_menu += "\n";
 
+    cheat_menu += "\n----TESTS----\n";
+    cheat_menu += "Variable - is_targetable: ";
+    cheat_menu += this->is_targetable ? "true" : "false";
+    cheat_menu += "\n";
+
     system("cls");
     std::cout << cheat_menu << std::endl;
+    std::cout << "Player Address: " << std::hex << (uintptr_t)this->player << std::endl;
+    std::cout << "Entity Address: " << std::hex << (uintptr_t)this->entity_pointed_at << std::endl;
 }
 #endif
